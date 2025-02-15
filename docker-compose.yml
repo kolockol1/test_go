@@ -1,0 +1,15 @@
+version: "3.8"
+services:
+  app:
+    build: .
+    depends_on:
+      - tarantool
+    ports:
+      - "8081:8080"
+  tarantool:
+    image: tarantool/tarantool:latest
+    ports:
+      - "3301:3301"
+    volumes:
+      - ./migrations:/opt/migrations/
+    command: tarantool /opt/migrations/tarantool_schema.lua
